@@ -15,11 +15,11 @@ def main():
     print("| 4. Divisão                                                      |")
     print("| 5. Sair                                                         |")
     print("| =============================================================== |")
-    operador: int = ler_opcao("Digite o número da operação desejada (1-5): ", [1, 2, 3, 4, 5])
+    operador: int = ler_opcao(prompt="Digite o número da operação desejada (1-5): ", opcoes=[1, 2, 3, 4, 5])
     if operador == 5:
         finalizar_programa()
-    a: float = ler_float("Digite o primeiro número: ")
-    b: float = ler_float("Digite o segundo número: ")
+    a: float = ler_float(prompt="Digite o primeiro número: ")
+    b: float = ler_float(prompt="Digite o segundo número: ")
     resultado: float | None = Calculadora.calcular(a, b, operador)
     if resultado:
         print(f"Resultado: {resultado:g}") # :g para evitar notação científica desnecessária

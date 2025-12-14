@@ -9,14 +9,14 @@ def ler_float(prompt: str) -> float:
         except ValueError:
             alertar("Entrada inválida. Por favor, digite um número válido.")
 
-def ler_opcao(prompt: str, opcoes: list) -> int:
+def ler_opcao(prompt: str, opcoes_disponiveis: list) -> int:
     """Lê uma opção do usuário dentre as opções fornecidas."""
     while True:
         try:
             valor: int = int(input(prompt))
-            if valor in opcoes:
+            if valor in opcoes_disponiveis:
                 return valor
             else:
-                alertar(f"Opção inválida. Por favor, escolha entre {opcoes}.")
+                alertar(f"Opção inválida. Por favor, escolha entre {opcoes_disponiveis}.")
         except ValueError:
             alertar("Entrada inválida. Por favor, digite um número válido.")
