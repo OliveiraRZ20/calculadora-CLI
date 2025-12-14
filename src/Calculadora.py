@@ -1,4 +1,4 @@
-from src.Utils import Utils
+from src.utils.logger import alertar, informar, confirmar
 
 class Calculadora():
     
@@ -28,9 +28,9 @@ class Calculadora():
             return Calculadora.multiplicar(a, b)
         if operador == 4:
             if b == 0:
-                Utils.alertar("Divisão por zero não é permitida.")
+                alertar("Divisão por zero não é permitida.")
                 return None
             return Calculadora.dividir(a, b)
         else:
-            Utils.alertar("Operador inválido.")
+            alertar("Operador inválido.")
             return None
