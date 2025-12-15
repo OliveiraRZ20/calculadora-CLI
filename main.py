@@ -1,4 +1,4 @@
-from src.Calculadora import Calculadora
+from src.objects import Calculadora
 from src.utils.logger import alertar, informar, confirmar
 from src.utils.terminal import cls, pause, finalizar_programa, confirmar_saida
 from src.utils.user_input import ler_float, ler_opcao
@@ -15,7 +15,7 @@ def main():
     print("| 4. Divisão                                                      |")
     print("| 5. Sair                                                         |")
     print("| =============================================================== |")
-    operador: int = ler_opcao(prompt="Digite o número da operação desejada (1-5): ", opcoes=[1, 2, 3, 4, 5])
+    operador: int = ler_opcao(prompt="Digite o número da operação desejada (1-5): ", opcoes_disponiveis=[1, 2, 3, 4, 5])
     if operador == 5:
         finalizar_programa()
     a: float = ler_float(prompt="Digite o primeiro número: ")
