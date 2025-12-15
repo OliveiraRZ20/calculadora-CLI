@@ -1,4 +1,4 @@
-from src.utils.logger import alertar, informar, confirmar
+from utils.logger import alertar, informar, confirmar
 
 class Calculadora():
     

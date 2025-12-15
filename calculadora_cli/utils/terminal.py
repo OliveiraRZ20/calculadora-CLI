@@ -1,5 +1,5 @@
 from os import system, name
-from src.utils.logger import alertar, informar, confirmar
+from utils.logger import alertar, informar, confirmar
 
 def cls():
     """Limpa a tela do terminal."""

@@ -1,4 +1,4 @@
-from src.utils.logger import alertar, informar, confirmar
+from utils.logger import alertar, informar, confirmar
 
 def ler_float(prompt: str) -> float:
     """Lê um número float do usuário, exibindo o prompt fornecido."""

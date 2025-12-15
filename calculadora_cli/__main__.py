@@ -1,10 +1,10 @@
-from src.objects import Calculadora
-from src.utils.logger import alertar, informar, confirmar
-from src.utils.terminal import cls, pause, finalizar_programa, confirmar_saida
-from src.utils.user_input import ler_float, ler_opcao
+from objects import Calculadora
+import utils.terminal as terminal
+import utils.user_input as user_input
+
 
 def main():
-    cls()
+    terminal.cls()
     print("| =============================================================== |")
     print("|             Bem-vindo à Calculadora no Terminal!                |")
     print("| =============================================================== |")
@@ -15,17 +15,21 @@ def main():
     print("| 4. Divisão                                                      |")
     print("| 5. Sair                                                         |")
     print("| =============================================================== |")
-    operador: int = ler_opcao(prompt="Digite o número da operação desejada (1-5): ", opcoes_disponiveis=[1, 2, 3, 4, 5])
+    operador: int = user_input.ler_opcao(prompt="Digite o número da operação desejada (1-5): ", opcoes_disponiveis=[1, 2, 3, 4, 5])
     if operador == 5:
-        finalizar_programa()
-    a: float = ler_float(prompt="Digite o primeiro número: ")
-    b: float = ler_float(prompt="Digite o segundo número: ")
+        terminal.finalizar_programa()
+    a: float = user_input.ler_float(prompt="Digite o primeiro número: ")
+    b: float = user_input.ler_float(prompt="Digite o segundo número: ")
     resultado: float | None = Calculadora.calcular(a, b, operador)
     if resultado:
         print(f"Resultado: {resultado:g}") # :g para evitar notação científica desnecessária
 
 if __name__ == "__main__":
-    cls()
-    while True:
-        main()
-        confirmar_saida()
+    try:
+        terminal.cls()
+        while True:
+            main()
+            terminal.confirmar_saida()
+    except KeyboardInterrupt:
+        print("")
+        terminal.finalizar_programa()
