@@ -9,6 +9,8 @@ from calculadora_cli.objects import Calculadora
 import pytest
 
 class TestCalculadora:
+    """Testes para a classe Calculadora."""
+    
     def test_somar(self):
         assert Calculadora.somar(2, 3) == 5
         assert Calculadora.somar(-1, 1) == 0
