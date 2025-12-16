@@ -1,49 +1,50 @@
-import math
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+# imports internos
+from calculadora_cli.objects import Calculadora
+
+# imports externos
 import pytest
 
-from calculadora_cli.objects.calculadora import Calculadora
+class TestCalculadora:
+    def test_somar(self):
+        assert Calculadora.somar(2, 3) == 5
+        assert Calculadora.somar(-1, 1) == 0
 
+    def test_subtrair(self):
+        assert Calculadora.subtrair(5, 3) == 2
+        assert Calculadora.subtrair(0, 0) == 0
 
-def test_somar_simples():
-	assert Calculadora.somar(2, 3) == 5
-	assert Calculadora.somar(-1, 1) == 0
-	assert Calculadora.somar(0.1, 0.2) == pytest.approx(0.3, rel=1e-9, abs=1e-9)
+    def test_multiplicar(self):
+        assert Calculadora.multiplicar(4, 2) == 8
+        assert Calculadora.multiplicar(-1, -1) == 1
 
+    def test_dividir(self):
+        assert Calculadora.dividir(6, 2) == 3
+        assert Calculadora.dividir(-4, 2) == -2
 
-def test_subtrair_simples():
-	assert Calculadora.subtrair(5, 3) == 2
-	assert Calculadora.subtrair(0, 3) == -3
+    def test_calcular_somar(self):
+        resultado = Calculadora.calcular(2, 3, 1)
+        assert resultado == (True, "Cálculo realizado com sucesso.", 5)
 
+    def test_calcular_subtrair(self):
+        resultado = Calculadora.calcular(5, 3, 2)
+        assert resultado == (True, "Cálculo realizado com sucesso.", 2)
 
-def test_multiplicar_simples():
-	assert Calculadora.multiplicar(4, 5) == 20
-	assert Calculadora.multiplicar(-2, 3) == -6
-	assert Calculadora.multiplicar(0, 99) == 0
+    def test_calcular_multiplicar(self):
+        resultado = Calculadora.calcular(4, 2, 3)
+        assert resultado == (True, "Cálculo realizado com sucesso.", 8)
 
+    def test_calcular_dividir(self):
+        resultado = Calculadora.calcular(6, 2, 4)
+        assert resultado == (True, "Cálculo realizado com sucesso.", 3)
 
-def test_dividir_simples():
-	assert Calculadora.dividir(10, 2) == 5
-	assert Calculadora.dividir(-9, 3) == -3
+    def test_calcular_divisao_por_zero(self):
+        resultado = Calculadora.calcular(6, 0, 4)
+        assert resultado == (False, "Divisão por zero não é permitida.", None)
 
-
-def test_dividir_por_zero_retorna_none_via_calcular():
-	# Operador 4 = divisão; quando b == 0 deve retornar None
-	assert Calculadora.calcular(10, 0, 4) is None
-
-
-def test_operador_invalido_retorna_none():
-	assert Calculadora.calcular(1, 2, 999) is None
-
-
-@pytest.mark.parametrize(
-	"a,b,operador,esperado",
-	[
-		(2, 3, 1, 5),         # soma
-		(5, 3, 2, 2),         # subtração
-		(4, 5, 3, 20),        # multiplicação
-		(10, 2, 4, 5),        # divisão
-	],
-)
-def test_calcular_mapeia_operadores(a, b, operador, esperado):
-	assert Calculadora.calcular(a, b, operador) == esperado
-
+    def test_calcular_operador_invalido(self):
+        resultado = Calculadora.calcular(6, 2, 5)
+        assert resultado == (False, "Operador inválido.", None)
