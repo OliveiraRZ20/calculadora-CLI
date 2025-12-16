@@ -1,6 +1,12 @@
-from objects import Calculadora
-import utils.terminal as terminal
-import utils.user_input as user_input
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+# imports internos
+from calculadora_cli.objects import Calculadora
+from calculadora_cli.utils import terminal, user_input
+
+# imports externos
 
 
 def main():
@@ -13,23 +19,23 @@ def main():
     print("| 2. Subtração                                                    |")
     print("| 3. Multiplicação                                                |")
     print("| 4. Divisão                                                      |")
-    print("| 5. Sair                                                         |")
     print("| =============================================================== |")
-    operador: int = user_input.ler_opcao(prompt="Digite o número da operação desejada (1-5): ", opcoes_disponiveis=[1, 2, 3, 4, 5])
-    if operador == 5:
-        terminal.finalizar_programa()
+    operador: int = user_input.ler_opcao(prompt="Digite o número da operação desejada (1-4): ", opcoes_disponiveis=[1, 2, 3, 4])
     a: float = user_input.ler_float(prompt="Digite o primeiro número: ")
     b: float = user_input.ler_float(prompt="Digite o segundo número: ")
-    resultado: float | None = Calculadora.calcular(a, b, operador)
-    if resultado:
-        print(f"Resultado: {resultado:g}") # :g para evitar notação científica desnecessária
+    
+    resultado, mensagem, valor = Calculadora.calcular(a, b, operador)
+    match resultado:
+        case True:
+            print(f"Resultado: {valor:g}") # :g para evitar notação científica desnecessária
+        case False:
+            terminal.alertar(mensagem)
 
 if __name__ == "__main__":
     try:
-        terminal.cls()
         while True:
             main()
-            terminal.confirmar_saida()
+            terminal.pause()
     except KeyboardInterrupt:
         print("")
         terminal.finalizar_programa()
