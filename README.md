@@ -19,14 +19,17 @@ No Windows, o comando pode ser `py --version`.
 
 ## Como executar
 1. Clone o repositório.
-2. Execute diretamente o arquivo principal.
+2. Execute como módulo (recomendado):
 
 ```bash
-# Windows
-python main.py
+# Windows / macOS / Linux
+python -m calculadora_cli
+```
 
-# Alternativa
-python3 main.py
+Ou diretamente pelo arquivo na raiz (se presente):
+
+```bash
+python main.py
 ```
 
 Ao iniciar, você verá o menu de operações:
@@ -56,22 +59,26 @@ Ao iniciar, você verá o menu de operações:
 ## Estrutura do projeto
 ```
 LICENSE
-main.py
 README.md
-src/
+calculadora_cli/
   __init__.py
-  Calculadora.py
+  __main__.py
+  objects/
+    calculadora.py
   utils/
     logger.py
     terminal.py
     user_input.py
+tests/
+  test_calculadora.py
 ```
 
-- `main.py`: ponto de entrada da aplicação; mostra o menu e orquestra o fluxo.
-- `src/Calculadora.py`: implementa `Calculadora` com os métodos `somar`, `subtrair`, `multiplicar`, `dividir` e `calcular`.
-- `src/utils/user_input.py`: leitura segura de números (`ler_float`) e opções (`ler_opcao`).
-- `src/utils/terminal.py`: utilidades de terminal (`cls`, `pause`, `finalizar_programa`, `confirmar_saida`).
-- `src/utils/logger.py`: mensagens coloridas (`alertar`, `informar`, `confirmar`).
+- `calculadora_cli/__main__.py`: ponto de entrada do pacote; permite `python -m calculadora_cli`.
+- `calculadora_cli/objects/calculadora.py`: classe `Calculadora` (`somar`, `subtrair`, `multiplicar`, `dividir`, `calcular`).
+- `calculadora_cli/utils/user_input.py`: leitura segura de números (`ler_float`) e opções (`ler_opcao`).
+- `calculadora_cli/utils/terminal.py`: utilidades de terminal (`cls`, `pause`, `finalizar_programa`, `confirmar_saida`).
+- `calculadora_cli/utils/logger.py`: mensagens coloridas (`alertar`, `informar`, `confirmar`).
+- `tests/test_calculadora.py`: testes unitários do módulo.
 
 ## Detalhes de implementação
 - `Calculadora.calcular(a, b, operador)` encaminha para a operação correta.
@@ -79,10 +86,17 @@ src/
 - O resultado é impresso com formatação `:g` para evitar notação científica.
 - O loop principal em `main.py` permite múltiplas operações até o usuário solicitar saída.
 
-## Desenvolvimento
-Não há dependências externas. Para rodar lint/format se desejar:
+## Testes
+Execute os testes com `pytest` a partir da raiz do projeto:
+
 ```bash
-# Exemplos (opcionais, se instalados)
+pip install pytest
+pytest
+```
+
+## Desenvolvimento
+Não há dependências externas. Para rodar ferramentas de lint/format (opcionais):
+```bash
 pip install ruff black
 ruff .
 black .
@@ -91,7 +105,7 @@ black .
 ## Licença
 Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE).
 
-## Roadmap (idéias futuras)
+## Roadmap (ideias futuras)
 - Histórico das operações no runtime.
 - Suporte a mais operações (potência, raiz, porcentagem).
-- Testes automatizados com `pytest`.
+- Configurar `pyproject.toml` para ferramentas (pytest, black, ruff).
