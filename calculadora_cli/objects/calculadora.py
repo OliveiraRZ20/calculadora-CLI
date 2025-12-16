@@ -1,5 +1,3 @@
-from utils.logger import alertar, informar, confirmar
-
 class Calculadora():
     
     @staticmethod
@@ -19,18 +17,19 @@ class Calculadora():
         return a / b
     
     @staticmethod
-    def calcular(a: float, b: float, operador: int) -> float | None:
-        if operador == 1:
-            return Calculadora.somar(a, b)
-        if operador == 2:
-            return Calculadora.subtrair(a, b)
-        if operador == 3:
-            return Calculadora.multiplicar(a, b)
-        if operador == 4:
-            if b == 0:
-                alertar("Divisão por zero não é permitida.")
-                return None
-            return Calculadora.dividir(a, b)
+    def calcular(a: float, b: float, operador: int) -> tuple[bool, str, float | None]:
+        if operador not in (1, 2, 3, 4):
+            return (False, "Operador inválido.", None)
+        elif operador == 4 and b == 0:
+            return (False, "Divisão por zero não é permitida.", None)
         else:
-            alertar("Operador inválido.")
-            return None
+            match operador:
+                case 1:
+                    resultado: float = Calculadora.somar(a, b)
+                case 2:
+                    resultado: float = Calculadora.subtrair(a, b)
+                case 3:
+                    resultado: float = Calculadora.multiplicar(a, b)
+                case 4:
+                    resultado: float = Calculadora.dividir(a, b)
+            return (True, "Cálculo realizado com sucesso.", resultado)
