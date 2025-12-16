@@ -29,7 +29,7 @@ python -m calculadora_cli
 Ou diretamente pelo arquivo na raiz (se presente):
 
 ```bash
-python main.py
+python __main__.py
 ```
 
 Ao iniciar, você verá o menu de operações:
@@ -58,19 +58,22 @@ Ao iniciar, você verá o menu de operações:
 
 ## Estrutura do projeto
 ```
-LICENSE
-README.md
-calculadora_cli/
-  __init__.py
-  __main__.py
-  objects/
-    calculadora.py
-  utils/
-    logger.py
-    terminal.py
-    user_input.py
-tests/
-  test_calculadora.py
+.
+|-- LICENSE
+|-- README.md
+|-- calculadora_cli
+|   |-- __init__.py
+|   |-- __main__.py
+|   |-- objects
+|   |   |-- calculadora.py
+|   |
+|   |-- utils
+|       |-- logger.py
+|       |-- terminal.py
+|       |-- user_input.py
+|
+|-- tests
+    |-- test_calculadora.py
 ```
 
 - `calculadora_cli/__main__.py`: ponto de entrada do pacote; permite `python -m calculadora_cli`.
